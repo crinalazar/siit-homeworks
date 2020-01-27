@@ -1,0 +1,16 @@
+h1 {
+    font-size: 4em;;
+}
+
+.play, input {
+    font-size: 3em;
+}
+
+p {
+    font-size: 2em;;
+}
+
+.hidden{
+    display: none;
+}
+
