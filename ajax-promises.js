@@ -1,107 +1,98 @@
+const body = document.querySelector("body");
 
-    async function displayGames(){
-    const getElem = getElements()
-    .then((data) => {
+(async function displayGames(){
+    fetch('https://games-world.herokuapp.com/games',{
+        method: 'GET'
+}).then((res) => res.json()).then((data) => {
        data.map(function(game){
-           let p = createElement('p'),
-               title = createElement('p'),
+           let title = createElement('p'),
                pimg = createElement('p'),
                img = createElement('img'),
                description = createElement('p');
-               const body = document.querySelector("body");
-
                title = game.title;
                img.src = game.imageUrl;
                description = game.description;
-            
-               append(body,p);
-               append(p, title);
-               append(pimg, img);
-               append(p, pimg);
-               append(p, description);
-               
+               pimg.append(img);
+               body.append(title, pimg, description);
+               createButtons(game._id);
             })
-    })   
-    };
-
-    async function getElements(){
-        return fetch('https://games-world.herokuapp.com/games',{
-        method: 'GET'
-        })
-            .then((res) => res.json())
-    }
-
-    async function getSomeId(x){
-        return getIds()
-            .then(r => r[x]);
-    }
-
-    async function getIds(){
-        const ids = await getElements();
-        return ids.map(id => id._id);    
-    }
-    // getSomeId(1).then(r => console.log(r));
-
+    })
+    addnewGame();
+    attachEventListeners();   
+    })();
+    
 
     function createElement(elem){
         return document.createElement(elem);
-     }
-     
-     function append(parent, elem){
-         return parent.append(elem);
-     }
+     }    
 
-    displayGames();
-    
-     
+    function createButtons(photoID){
+        const editBtn = createElement('button');
+        editBtn.innerHTML = 'Edit';
+        editBtn.classList.add('edit-button');
+        editBtn.setAttribute('data-photo-id', photoID);
 
+        const deleteBtn = createElement('button');
+        deleteBtn.innerHTML = 'Delete';
+        deleteBtn.classList.add('delete-button');
+        deleteBtn.setAttribute('data-photo-id', photoID);
 
-     async function editElement(id, newData){
-        fetch(('https://games-world.herokuapp.com/games/' + id),{
-            method: 'PUT',
-            Payload:{
-                title: newData
-            },
-            headers: {
-                'Content-type' : 'application/json'
-            }
-
-        })  
-    };
-
-    async function deleteElement(id){
-        fetch(('https://games-world.herokuapp.com/games/'+ id),{
-            method: 'DELETE'
-    })
-    };
-
-    //  deleteElement('5e5416fa998d09002054672b');
-
-    // 2- Dishonored 2
-    
-//    let x = getSomeId(1).then(res);
-    // editElement('5e4b059b908d7a0024286887', "New Title");
-    
-    // console.log(x);
-
-    async function createGame(){
-        fetch(('https://games-world.herokuapp.com/games/' ),{
-            method: 'POST',
-            Payload: JSON.stringify({
-                title: 'Call of Duty®: WWII Returned xxx',
-                releaseDate: 1333929600,
-                genre: 'First Person Shooter',
-                publisher: 'Activision',
-                imageUrl: 'https://psmedia.playstation.com/is/image/psmedia/call-of-duty-wwii-two-column-01-ps4-eu-19apr17?$TwoColumn_Image$',
-                description: "Return to the 20th century’s most iconic armed conflict and the dramatic backdrop which first inspired the  hugely-popular Call of Duty series – now redefined for a new gaming generation.",
-            }),
-            headers:  {
-                'Content-type' : 'application/json'
-            }           
-    });
+        const p = createElement('p');
+        body.append(p);
+        p.append(editBtn, deleteBtn);
     }
 
-    // createGame();
+    function addnewGame(){
+        const createBtn = createElement('button');
+        createBtn.innerHTML = 'Create';
+        createBtn.classList.add('create-button');
+        createBtn.style.color = 'blue';
+        document.querySelector('p').append(createBtn);
+    }
 
+    function attachEventListeners(){
+        document.addEventListener('click', handleClick);
+    
+        function handleClick(e) {
+            const photoId = e.target.getAttribute('data-photo-id');
+            if(e.target.classList.contains('edit-button')) {
+                handleEdit(photoId);
+            } else if(e.target.classList.contains('delete-button')) {
+                handleDelete(photoId);
+            } else if (e.target.classList.contains('create-button')){
+                handleCreate();
+            }
 
+        };
+    };
 
+    function handleEdit(id) {
+        fetch(`http://games-world.herokuapp.com/games/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'title=new title'
+        })
+    };
+
+    function handleDelete(id) {
+        fetch(`http://games-world.herokuapp.com/games/${id}`, {
+            method: 'DELETE'
+        })
+
+    };
+
+    function handleCreate(){
+        fetch('http://games-world.herokuapp.com/games/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'title=Watch_Dogs 2&imageUrl=https://psmedia.playstation.com/is/image/psmedia/watch-dogs-2-two-column-01-ps4-eu-09jun16?$TwoColumn_Image$ &description=Take an extended tour of San Francisco and test your skills in a range of high-risk additional missions and contracts with the Watch_Dogs 2 Season Pass.Take T-Bone s custom car-flipping truck for a spin in a special mission included in the first DLC pack, embark on three hour-long story missions with Lenni and Jordan in the second DLC pack, Human Conditions, and explore the city s seedy sex trade in the final DLC pack, No Compromises.'
+        })
+    };
+
+    
+
+    
