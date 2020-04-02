@@ -1,30 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from './header/Header';
 import MovieList from './movies/MovieList';
 import MovieDetails from './movies/MovieDetails';
 import Register from './auth/Register';
+import Login from './auth/Login';
+import AuthContext from './auth/AuthContext';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        //verificam daca in local storage avem token, daca avem facem un setToken(<ce vine din localStorage>)
+        const token = localStorage.getItem('token');
+        if(token) {
+            setToken(token);
+        }
+    }, []);
+
     return (
-        
-        <BrowserRouter>
-            <Header user="Alexandru" />
-            <div className="container">
-                <Route exact path="/">
-                    <MovieList />
-                </Route>
-                <Route path="/movies/:movieId">
-                    <MovieDetails />
-                </Route>
-                <Route path="/register">
-                    <Register />
-                </Route>
-            </div>
-        </BrowserRouter>
+        <AuthContext.Provider value={ {token, setToken} }>
+            <BrowserRouter>
+                <Header user="Alexandru" />
+                <div className="container">
+                    <Route exact path="/">
+                        <MovieList />
+                    </Route>
+                    <Route path="/movies/:movieId">
+                        <MovieDetails />
+                    </Route>
+                    <Route path="/register">
+                        <Register />
+                    </Route>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                </div>
+            </BrowserRouter>
+        </AuthContext.Provider>
     );
 }
 

@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../auth/AuthContext';
 
 function Header(props) {
+    const { token, setToken } = useContext(AuthContext);
+
+    function handleLogout(e) {
+        e.preventDefault();
+
+        setToken(null);
+        localStorage.removeItem('token');
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <Link className="navbar-brand" to="/">Movie Database</Link>
@@ -10,15 +20,24 @@ function Header(props) {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav w-100">
-                    <li className="nav-item flex-grow-1 active">
+                    <li className="nav-item active">
                         <Link className="nav-link" to="/">
                             Home <span className="sr-only">(current)</span>
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/register">
-                            Login/Register
-                        </Link>
+                        { ( token ? 
+                            <a href="/" className="nav-link" onClick={ handleLogout }>Logout</a>
+                        :
+                            <>
+                                <Link className="nav-link" to="/login">
+                                    Login
+                                </Link>
+                                <Link className="nav-link" to="/register">
+                                    Register
+                                </Link>
+                            </>
+                        )}
                     </li>
                     
                 </ul>

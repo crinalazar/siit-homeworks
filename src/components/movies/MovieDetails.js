@@ -9,6 +9,8 @@ function MovieDetails() {
     async function getMovieById(id) {
         const res = await axios('https://ancient-caverns-16784.herokuapp.com/movies/' + id);
         setMovie(res.data);
+
+        console.log(movie);
     }
     
     useEffect(() => { 
