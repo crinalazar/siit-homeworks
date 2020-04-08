@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './shared/Header';
 import MovieList from './movies/MovieList';
 import MovieDetails from './movies/MovieDetails';
+import EditMovie from './movies/EditMovie';
 import Register from './auth/Register';
 import Login from './auth/Login';
 import AuthContext from './auth/AuthContext';
@@ -29,8 +30,11 @@ function App() {
                     <Route exact path="/">
                         <MovieList />
                     </Route>
-                    <Route path="/movies/:movieId">
+                    <Route exact path="/movies/:movieId">
                         <MovieDetails />
+                    </Route>
+                    <Route path="/movies/edit/:movieId">
+                        <EditMovie />
                     </Route>
                     <Route path="/register">
                         <Register />

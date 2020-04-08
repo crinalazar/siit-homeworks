@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+
+import AuthContext from '../auth/AuthContext';
 
 function MovieDetails() {
     const { movieId } = useParams();
     const [movie, setMovie] = useState(null);
 
-    async function getMovieById(id) {
-        const res = await axios('https://ancient-caverns-16784.herokuapp.com/movies/' + id);
-        setMovie(res.data);
+    const { token } = useContext(AuthContext);
 
-        console.log(movie);
+    async function getMovieById(id) {
+        try {
+            const res = await axios('https://ancient-caverns-16784.herokuapp.com/movies/' + id);
+            setMovie(res.data);
+        } catch(e) {
+            console.warn(e);
+        }
+ 
     }
     
     useEffect(() => { 
@@ -23,6 +30,13 @@ function MovieDetails() {
             <>
                 <h1>{ movie.Title }</h1>
                 <h5>Year: { movie.Year }</h5>
+                {
+                    token ? 
+                        <Link className="btn btn-primary" to={ "/movies/edit/" + movie._id }>Edit This Movie</Link>
+                    :
+                        null
+                }
+                
             </>
         );
     } else {
