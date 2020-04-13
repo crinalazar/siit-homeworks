@@ -23,12 +23,10 @@ function MovieList() {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                { movies.map(movie => <MovieCard film={ movie } key={ movie._id } />) }
+        <div className="row">
+            { movies.map(movie => <MovieCard film={ movie } key={ movie._id } />) }
 
-                {/* { movies.length ? movies.map(movie => <MovieCard film={ movie } />) : 'Loading ...'} */}             
-            </div>
+            {/* { movies.length ? movies.map(movie => <MovieCard film={ movie } />) : 'Loading ...'} */}             
         </div>
     );
 }
