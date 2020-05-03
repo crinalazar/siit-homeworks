@@ -1,19 +1,598 @@
 {
-  "posts": [
+  "Users": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "FirstName": "Mike",
+      "LastName": "Smith",
+      "Email": "mike.smith@gmail.com",
+      "Password": "mikesmith",
+      "Age": 35,
+      "Photo": "https://www.readersdigest.ca/wp-content/uploads/sites/14/2017/10/hair-loss-in-men-avoid-man-buns.jpg"
+    },
+    {
+      "id": 2,
+      "FirstName": "Mary",
+      "LastName": "Berry",
+      "Email": "mary.berry@gmail.com",
+      "Password": "maryberry",
+      "Age": 47,
+      "Photo": "https://www.agsinger.com/wp-content/uploads/what-expect-get-older-woman.jpg"
     }
   ],
-  "comments": [
+  "UsersRecipes": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "userId": 1,
+      "recipeId": 1
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "recipeId": 2
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "recipeId": 3
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "recipeId": 4
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "recipeId": 5
+    },
+    {
+      "id": 6,
+      "userId": 1,
+      "recipeId": 6
+    },
+    {
+      "id": 7,
+      "userId": 1,
+      "recipeId": 9
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "Recipes": [
+    {
+      "id": 1,
+      "RecipeName": "Red lentil soup",
+      "PreparationTime": "less than 30 minutes",
+      "CookingTime": "10 to 30 mins",
+      "Serves": "4",
+      "Vegetarian": "yes",
+      "Description": "A thick, warming vegan lentil soup made with just three ingredients plus stock and seasoning. It's vegan and gluten-free too. For this recipe you will need a blender.",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/red_lentil_squash_and_72513_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "olive oil",
+          "quantity": "2 tbsp"
+        },
+        {
+          "id": "2",
+          "type": "garlic cloves",
+          "quantity": "2"
+        },
+        {
+          "id": "3",
+          "type": "salt",
+          "quantity": "1/2 tsp"
+        },
+        {
+          "id": "4",
+          "type": "root ginger, peeled and finely grated",
+          "quantity": "1"
+        },
+        {
+          "id": "5",
+          "type": "red chilli flakes",
+          "quantity": "1/2 tsp"
+        },
+        {
+          "id": "6",
+          "type": "red lentils",
+          "quantity": "300 g"
+        },
+        {
+          "id": "7",
+          "type": "hot vegetable stock",
+          "quantity": "1.2 liters"
+        },
+        {
+          "id": "8",
+          "type": " butternut squash",
+          "quantity": "300 g"
+        },
+        {
+          "id": "9",
+          "type": "salt",
+          "quantity": "taste"
+        },
+        {
+          "id": "10",
+          "type": "black pepper",
+          "quantity": "taste"
+        }
+      ],
+      "Method": "Heat half the oil over a medium heat in a large, heavy-based saucepan. Add half the garlic, if using, half the ginger and all the chilli flakes, if using. Fry, stirring all the time, for 1 minute. Add the lentils and fry, stirring, for a further minute. Pour in the stock and bring to the boil. Simmer, with the lid off, for 10–12 minutes, or until the lentils are soft. Meanwhile, heat the remaining oil in a heavy-based frying pan. Add the remaining garlic and ginger and the butternut squash and cook, stirring, for 12 minutes. Add the butternut squash to the lentils and cook for a further 5 minutes. Remove from the heat and blitz using a stick blender until smooth. Season to taste with salt and pepper."
+    },
+    {
+      "id": 2,
+      "RecipeName": "Banana Bread",
+      "PreparationTime": "less than 30 minutes",
+      "CookingTime": "30 mins to 1 hour",
+      "Serves": "10",
+      "Vegetarian": "yes",
+      "Description": "This is an easy banana bread recipe that gives perfect results every time. Be sure to use really ripe bananas.",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/bananabread_85720_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "flour",
+          "quantity": "285 g"
+        },
+        {
+          "id": "2",
+          "type": "bicarbonate of soda",
+          "quantity": "1 tsp"
+        },
+        {
+          "id": "3",
+          "type": "salt",
+          "quantity": "1/2 tsp"
+        },
+        {
+          "id": "4",
+          "type": "red chilli flakes",
+          "quantity": "½ tsp"
+        },
+        {
+          "id": "5",
+          "type": "butter",
+          "quantity": "110 g"
+        },
+        {
+          "id": "6",
+          "type": "caster sugar",
+          "quantity": "225 g"
+        },
+        {
+          "id": "7",
+          "type": "eggs",
+          "quantity": "2"
+        },
+        {
+          "id": "8",
+          "type": "bananas",
+          "quantity": "4"
+        },
+        {
+          "id": "9",
+          "type": "butter milk",
+          "quantity": "85 ml"
+        },
+        {
+          "id": "10",
+          "type": " vanilla extract",
+          "quantity": "1 tsp"
+        }
+      ],
+      "Method": "Preheat the oven to 180C/350F/Gas 4. Sift the flour, bicarbonate of soda and salt into a large mixing bowl. In a separate bowl, cream the butter and sugar together until light and fluffy. Add the eggs, mashed bananas, buttermilk and vanilla extract to the butter and sugar mixture and mix well. Fold in the flour mixture. Grease a 20cm x 12.5cm/8in x 5in loaf tin (2lb) and pour the cake mixture into the tin. Transfer to the oven and bake for about an hour, or until well-risen and golden-brown. Remove from the oven and cool in the tin for a few minutes, then turn out onto a wire rack to cool completely before serving."
+    },
+    {
+      "id": 3,
+      "RecipeName": "Dauphinoise potatoes",
+      "PreparationTime": "less than 30 minutes",
+      "CookingTime": "30 mins to 1 hour",
+      "Serves": "6",
+      "Vegetarian": "yes",
+      "Description": "These creamy, garlicky dauphinoise potatoes make a fabulous side dish for any Sunday roast.",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/dauphinoisepotatoes_90205_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "floury potatoes",
+          "quantity": "1 kg"
+        },
+        {
+          "id": "2",
+          "type": "double cream (you may need a bit extra)",
+          "quantity": "500 ml"
+        },
+        {
+          "id": "3",
+          "type": "garlic cloves, grated",
+          "quantity": "3-4"
+        },
+        {
+          "id": "4",
+          "type": " freshly ground black pepper",
+          "quantity": "taste"
+        },
+        {
+          "id": "5",
+          "type": "salt",
+          "quantity": "taste"
+        }
+      ],
+      "Method": "Place the potato slices and grated garlic in a bowl and season to taste. Pour over the cream and mix well. Pour into a large gratin dish. Press the potato down with the back of a spoon or your hands so it forms a solid layer. The cream should come to just below the top layer of potato, top up with more double cream if necessary. Bake for 1-1½ hours, or until the potatoes are completely tender."
+    },
+    {
+      "id": 4,
+      "RecipeName": "Cranachan",
+      "PreparationTime": "less than 30 minutes",
+      "CookingTime": "less than 10 mins",
+      "Serves": "8",
+      "Vegetarian": "yes",
+      "Description": "It's super easy to whip up Mary Berry's classic Scottish cranachan. Hold back some of the crunchy oats and raspberries for a pretty topping, but don't hold back on the whisky!",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/cranachan_49732_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "butter",
+          "quantity": "knob"
+        },
+        {
+          "id": "2",
+          "type": "light muscovado sugar",
+          "quantity": "100 g"
+        },
+        {
+          "id": "3",
+          "type": "salt",
+          "quantity": "1/2 tsp"
+        },
+        {
+          "id": "4",
+          "type": "jumbo oats",
+          "quantity": "100 g"
+        },
+        {
+          "id": "5",
+          "type": "butter",
+          "quantity": "110 g"
+        },
+        {
+          "id": "6",
+          "type": "mascarpone",
+          "quantity": "250 g"
+        },
+        {
+          "id": "7",
+          "type": "pint double cream",
+          "quantity": "300 ml"
+        },
+        {
+          "id": "8",
+          "type": "whiskey",
+          "quantity": "75 ml"
+        },
+        {
+          "id": "9",
+          "type": "raspberriesk",
+          "quantity": "450 g"
+        }
+      ],
+      "Method": "Put the butter, sugar and oats in a saucepan and stir over a high heat for 4?5 minutes, or until toasted and crunchy. Set aside to cool. Measure the mascarpone and cream into a bowl and whisk until soft peaks form when the whisk is removed from the bowl. Add the whisky, 300g/10?oz raspberries and two-thirds of the cooled oats. Mix until combined, but try to keep the raspberries fairly whole. Spoon into glasses and top with the remaining raspberries and crunchy oats."
+    },
+    {
+      "id": 5,
+      "RecipeName": "Lentil, bean and kale salad",
+      "PreparationTime": "overnight",
+      "CookingTime": "30 mins to 1 hour",
+      "Serves": "4",
+      "Vegetarian": "yes",
+      "Description": "A simple, summery salad made with store cupboard ingredients. You can always swap the dried ingredients for tinned or jarred ingredients for fresh, if you have them.",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/lentil_bean_and_kale_16422_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "dried brown, green or red lentils",
+          "quantity": "100 g"
+        },
+        {
+          "id": "2",
+          "type": "dried black-eyed or haricot beans",
+          "quantity": "100 g"
+        },
+        {
+          "id": "3",
+          "type": "sun-dried tomatoes, roughly chopped",
+          "quantity": "8"
+        },
+        {
+          "id": "4",
+          "type": "green or black olives from a jar",
+          "quantity": "handful"
+        },
+        {
+          "id": "5",
+          "type": " fresh flatleaf parsley, torn",
+          "quantity": "handful"
+        },
+        {
+          "id": "6",
+          "type": "stalks removed and chopped",
+          "quantity": "80 g"
+        },
+        {
+          "id": "7",
+          "type": "large garlic clove, crushed or grated",
+          "quantity": "1"
+        },
+        {
+          "id": "8",
+          "type": "fresh red chilli",
+          "quantity": "1"
+        },
+        {
+          "id": "9",
+          "type": "olive oil",
+          "quantity": "130 ml"
+        },
+        {
+          "id": "10",
+          "type": "  lemon, zest and juice",
+          "quantity": "1"
+        }
+      ],
+      "Method": "Soak the lentils and beans overnight, or for at least 8 hours. Rinse the lentils and beans and put into a saucepan of cold water. Bring to the boil and cook for 10 minutes, removing any scum that comes to the surface. Reduce to a simmer and cook for 30 minutes, or until tender. Drain and rinse. (Skip this step if using tinned lentils, just warm them through in a saucepan with a splash of water. To make the dressing, put all the ingredients into a lidded jar and shake vigorously until combined. Taste and adjust with more lemon, if needed. Put into a saucepan and warm over a low heat. Toss the beans and lentils with the remaining salad ingredients. Drizzle over the dressing to taste and serve."
+    },
+    {
+      "id": 6,
+      "RecipeName": "Sardinesca",
+      "PreparationTime": "30 mins to 1 hour",
+      "CookingTime": "10 to 30 mins",
+      "Serves": "2",
+      "Vegetarian": "yes",
+      "Description": "Like a puttanesca sauce, but with sardines in place of the anchovies, this simple storecupboard pasta recipe works well with any strongly flavoured tinned fish.",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/sardinesca_94123_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "tins sardines in oil",
+          "quantity": "2 x 120 g"
+        },
+        {
+          "id": "2",
+          "type": "tin chopped tomatoes",
+          "quantity": "400 g"
+        },
+        {
+          "id": "3",
+          "type": "sun-dried tomatoes, roughly chopped",
+          "quantity": "8"
+        },
+        {
+          "id": "4",
+          "type": "vegetable, fish or chicken stock",
+          "quantity": "200 ml"
+        },
+        {
+          "id": "5",
+          "type": "olives, finely chopped",
+          "quantity": "2 tbsp"
+        },
+        {
+          "id": "6",
+          "type": "lemon juice, or any kind of vinegar",
+          "quantity": "1 tbsp"
+        },
+        {
+          "id": "7",
+          "type": "dried spaghetti or other pasta",
+          "quantity": "280 g "
+        },
+        {
+          "id": "8",
+          "type": "fresh red chilli",
+          "quantity": "1"
+        },
+        {
+          "id": "9",
+          "type": "salt and black pepper",
+          "quantity": "your taste"
+        }
+      ],
+      "Method": "Tip the sardines into a saucepan, removing any large bones, and mash lightly with a fork. Add the tomatoes, stock and olives, then add the lemon juice or vinegar and plenty of black pepper, and bring to the boil. Turn down the heat and simmer for 30 minutes; you may need to add a splash of water to stop it from drying out. When the sauce is cooked, remove it from the heat and leave to cool (see Recipe Tip). Cook the pasta in a pan of plenty of boiling salted water for 8 minutes, or according to the packet instructions. Drain and add to the sauce, and warm through to serve."
+    },
+    {
+      "id": 7,
+      "RecipeName": "Spanish meatball stew",
+      "PreparationTime": "less than 30 mins",
+      "CookingTime": "10 to 30 mins",
+      "Serves": "4",
+      "Vegetarian": "no",
+      "Description": "This is a real store cupboard saviour. Pork mince can vary wildly in fat content, so make sure you check before buying. You could add more vegetables to this stew if you like - spinach, sweet potato, carrot or celery would all work. Chickpeas are a nice substitution for the beans, too.",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/spanish_meatball_stew_49243_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "lean pork mince (8% fat or less)",
+          "quantity": "250 g"
+        },
+        {
+          "id": "2",
+          "type": "garlic granules",
+          "quantity": "1 tsp"
+        },
+        {
+          "id": "3",
+          "type": "dried breadcrumbs",
+          "quantity": "25 g"
+        },
+        {
+          "id": "4",
+          "type": "vegetable, fish or chicken stock",
+          "quantity": "200 ml"
+        },
+        {
+          "id": "5",
+          "type": "ground cumin",
+          "quantity": "1 tsp"
+        },
+        {
+          "id": "6",
+          "type": "onion, grated",
+          "quantity": "1"
+        },
+        {
+          "id": "7",
+          "type": "dried spaghetti or other pasta",
+          "quantity": "280 g "
+        },
+        {
+          "id": "8",
+          "type": "chopped chorizo",
+          "quantity": "20 g"
+        },
+        {
+          "id": "9",
+          "type": "tin chopped tomatoes",
+          "quantity": "400 g"
+        },
+        {
+          "id": "10",
+          "type": "tin cannellini beans, drained",
+          "quantity": "400 g"
+        },
+        {
+          "id": "11",
+          "type": "salt and black pepper",
+          "quantity": "your taste"
+        },
+        {
+          "id": "12",
+          "type": "roasted red peppers from a jar (not in oil), drained weight, chopped",
+          "quantity": "200 g"
+        },
+        {
+          "id": "13",
+          "type": "basmati rice",
+          "quantity": "100 g"
+        },
+        {
+          "id": "14",
+          "type": "salt and freshly ground black pepper",
+          "quantity": "taste"
+        }
+      ],
+      "Method": "Mix together the pork mince, breadcrumbs, garlic granules, cumin, half the grated onion, plus a little salt and black pepper in a mixing bowl. Shape into 16 small meatballs and set aside. Spray a large, lidded pan with a little spray oil and add the chorizo. Fry until the chorizo begins to create a little more oil in the pan, then add the rest of the onion and fry gently for a minute. Add the tinned tomatoes, beans, chopped red pepper and half a tomato tin of water to the pan. Stir everything together and bring to a simmer. Put the meatballs carefully in the sauce, pushing them down with a spoon into the sauce. Season with more black pepper, then partially cover the pan and simmer for 20 minutes. Uncover the stew as you cook the basmati rice according to the packet instructions. Serve the stew with the rice alongside."
+    },
+    {
+      "id": 8,
+      "RecipeName": "Dal makhani ",
+      "PreparationTime": "30 mins to 1 hour",
+      "CookingTime": "10 to 30 mins",
+      "Serves": "4",
+      "Vegetarian": "yes",
+      "Description": "This is one of my favourite curries ? it?s deceptively substantial for a vegetarian dish, and delicious hot or cold. I often make it by throwing all of the ingredients into the slow cooker at the start of the day, so I come home to a delicious creamy dinner.",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/dal_makhani_30779_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": "tin brown lentils, rinsed and drained",
+          "quantity": "400 g"
+        },
+        {
+          "id": "2",
+          "type": "tin kidney beans, rinsed and drained",
+          "quantity": "400 g"
+        },
+        {
+          "id": "3",
+          "type": "very large onion, finely chopped",
+          "quantity": "1"
+        },
+        {
+          "id": "4",
+          "type": "garlic and ginger paste",
+          "quantity": "1 tbsp"
+        },
+        {
+          "id": "5",
+          "type": "medium curry powder",
+          "quantity": "2 tbsp"
+        },
+        {
+          "id": "6",
+          "type": "butter",
+          "quantity": "75 g"
+        },
+        {
+          "id": "7",
+          "type": "tin full-fat coconut milk",
+          "quantity": "400 g "
+        },
+        {
+          "id": "8",
+          "type": "tin chopped tomatoes",
+          "quantity": "400 g"
+        },
+        {
+          "id": "9",
+          "type": "salt and black pepper",
+          "quantity": "taste"
+        }
+      ],
+      "Method": "    Put the onion, garlic and ginger paste, curry powder, cayenne or chilli (if using) with half the butter in a frying pan over a low-medium heat. Cook until the onions soften. Pour in the coconut milk and tomatoes and season with a pinch of salt and plenty of black pepper. Bring to the boil, then reduce to a simmer. Add the beans, lentils and remaining butter. Simmer for about 30 minutes. Remove from the heat, cover and leave to cool completely; the flavours will continue to cook and develop as it cools. To serve, heat through thoroughly and serve with rice. If you like, scatter over some fresh coriander."
+    },
+    {
+      "id": 9,
+      "RecipeName": "Vegan vanilla cupcakes",
+      "PreparationTime": "less than 30 mins",
+      "CookingTime": "10 to 30 mins",
+      "Serves": "12",
+      "Vegetarian": "yes",
+      "Description": "Everyone will want this easy vegan cupcake recipe because they are absolutely delicious. Equipment and preparation: You will need a 12-hole muffin tin and paper cupcake cases. ",
+      "Picture": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/vegan_vanilla_cupcakes_62123_16x9.jpg",
+      "Ingredients": [
+        {
+          "id": "1",
+          "type": " self-raising flour",
+          "quantity": "275 g"
+        },
+        {
+          "id": "2",
+          "type": "baking powder",
+          "quantity": "1 tsp"
+        },
+        {
+          "id": "3",
+          "type": "caster sugar",
+          "quantity": "225 g"
+        },
+        {
+          "id": "4",
+          "type": " sunflower oil",
+          "quantity": "200 ml"
+        },
+        {
+          "id": "5",
+          "type": "slightly sweetened soya milk",
+          "quantity": "200 ml"
+        },
+        {
+          "id": "6",
+          "type": " vanilla extract",
+          "quantity": "1 tsp"
+        },
+        {
+          "id": "7",
+          "type": " icing sugar",
+          "quantity": "400 g "
+        },
+        {
+          "id": "8",
+          "type": "dairy-free margarine",
+          "quantity": "150 g"
+        }
+      ],
+      "Method": "Preheat the oven to 190C/170C Fan/Gas 5. Line a 12-hole muffin tin with paper cupcake cases. Mix the flour, baking powder and sugar together in a large bowl. Make a well in the centre and add the sunflower oil, soya milk and vanilla. Use a large metal whisk to thoroughly combine all the ingredients. Spoon the batter into the cupcake cakes and bake for 18?20 minutes, or until well risen and firm to the touch. Leave to cool in the tin for at least 1 hour before icing. To make the frosting, sift the icing sugar into a large bowl and add the dairy-free spread and vanilla. Beat with a wooden spoon until smooth and creamy. Either spread the frosting on the cooled cupcakes or spoon into a large piping bag fitted with a star nozzle and pipe on top. Leave to set for 30?60 minutes in the fridge before serving. "
+    }
+  ]
 }

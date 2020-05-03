@@ -1,50 +1,71 @@
-import React, { useContext } from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../auth/AuthContext';
+import UserContext from '../auth/UserContext';
 
-function Header(props) {
-    const { token, setToken } = useContext(AuthContext);
+import '../../style/cooking-app.css';
+
+function Header(){
+
+    const email = localStorage.getItem('email');
+    const { token, setToken} = useContext(AuthContext);
+    const { userId } = useContext(UserContext);
+
 
     function handleLogout(e) {
         e.preventDefault();
 
         setToken(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('user');
     }
-
+   
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <Link className="navbar-brand" to="/">Movie Database</Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav w-100">
-                    <li className="nav-item active">
-                        <Link className="nav-link" to="/">
-                            Home <span className="sr-only">(current)</span>
-                        </Link>
-                    </li>
-                    <li className="nav-item">
+        <>
+        <p className= "stickyName">Crina <span>L</span>azar</p>
+        <div className="first-section">
+            <header>
+                <p> Your own recipe book</p>
+            </header>
+            
+            <nav>
+                <ul>
+                    <li><Link to="/">
+                            Home
+                        </Link></li> 
+                        { ( token ?
+                    <li><Link to={"/user/" + userId}>
+                            Profile
+                        </Link></li> 
+                        :
+                        <li><Link  className="inactive" to="/user">
+                            Profile
+                        </Link></li> 
+                        )}
+
+                    <li>
                         { ( token ? 
-                            <a href="/" className="nav-link" onClick={ handleLogout }>Logout</a>
+                            <a href="/" onClick={ handleLogout }>Logout</a>
                         :
                             <>
-                                <Link className="nav-link" to="/login">
+                               <Link to="/login">
                                     Login
-                                </Link>
-                                <Link className="nav-link" to="/register">
+                                </Link> 
+                                <Link className="register" to="/register">
                                     Register
-                                </Link>
+                                </Link> 
                             </>
                         )}
                     </li>
-                    
                 </ul>
-                
-            </div>
-        </nav>
-    );
-}
+            </nav>
+            { ( token, email ? <p className = "userLogged">Logged in as {email} </p> : <p> </p>)}
+        </div>
+        </>
+
+    )
+
+    }
 
 export default Header;

@@ -1,114 +1,41 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import qs from 'qs';
-
+import '../../style/cooking-app.css';
 import AuthContext from './AuthContext';
+import UserContext from './UserContext';
 
-const errorMessages = {
-    'username': 'You must enter a username!',
-    'password': 'You must enter a password!',
-    'retype-password': 'You must retype the password!',
-    'different-passwords': 'You must enter the same password twice!',
-    'no-numbers': 'Your username cannot contain any special characters or numbers!',
-};
+var jwt = require("jsonwebtoken");
 
-function Register() {
-    // Vom stoca aici toate value-urile input-urilor din formular
-    const [formData, setFormData] = useState({
-        'username': '',
-        'password': '',
-        'retype-password': ''
-    });
 
-    // Vom seta cate un mesaj de eroare pentru fiecare form field in parte in cazul in care e eronat campul
+    const errorMessages = {
+        'email': 'You must enter an email!',
+        'existing-email': "Email already existing!",
+        'password': 'You must enter a password!',
+        'retype-password': 'You must retype the password!',
+        'different-passwords': 'You must enter the same password twice!',
+        'no-numbers': 'The username cannot contain any special characters!',
+    };
+
+    function Register(){
+        const [formData, setFormData] = useState({
+            'email': '',
+            'password': '',
+            'retype-password': ''
+        });
+
     const [formError, setFormError] = useState({
-        'username': '',
+        'email': '',
         'password': '',
         'retype-password': '',
         'different-passwords': ''
     });
 
-    // O vom folosi pentru cand vine raspuns cu eroare de la server
-    const [globalErrorMessage, setGlobalError] = useState('');
-    // O vom folosi doar pentru mesajul de succes
-    const [isSuccessfull, setSuccessfull] = useState(false);
-    /*
-        Vom folosi aceasta variabila de stare ca sa determinam daca formularul s-a modificat si vom face butonul
-        disabled daca nu s-a modificat.       
-
-        Prin urmare vom seta isDirty true atunci cand se declanseaza Change la orice input.
-
-        De asemenea vom face isDirty false de fiecare data cand se da Submit.
-    */
-    const [isDirty, setDirty] = useState(false);
-
-    const { setToken } = useContext(AuthContext);
-
-    async function handleSubmit(e) { 
-        e.preventDefault(); 
-
-        setGlobalError('');
-
-        const isInvalid = validateFormData();
-
-        if(!isInvalid) {
-            setDirty(false);
-            try {
-                const res = await axios('https://ancient-caverns-16784.herokuapp.com/auth/register',{
-                    method: 'POST',
-                    data: qs.stringify(formData),
-                });
-
-                setToken(res.data.accessToken);
-                localStorage.setItem('token', res.data.accessToken);
-
-                setSuccessfull(true);
-            } catch(e) {
-                setGlobalError(e.response.data.message);
-            }
-        }
-    }
-
-    function validateFormData() {
-        const inputs = ['username', 'password', 'retype-password'];
-        const newError = { ...formError };
-        let isInvalid = false;
-        
-        for(const input of inputs) {
-            if(!formData[input]) {
-                newError[input] = errorMessages[input];
-                isInvalid = true;
-            }
-        }
-
-        if(!(/^[a-z0-9]+$/i.test(formData.username))) {
-            newError.username = errorMessages['no-numbers'];
-            isInvalid = true;
-        }
-        
-        if(formData.password !== formData['retype-password']) {
-           newError['different-passwords'] = errorMessages['different-passwords'];
-           isInvalid = true;
-        }
-
-        setFormError(newError);
-        return isInvalid;
-    }
-
-    function handleInputChange(e) {
-        // const prop = e.currentTarget.id;
-        // const newObj = { ...formData };
-        // newObj[prop] = e.currentTarget.value;
-
-        // setFormData(newObj);
+    function handleInputChange(e){
         setDirty(true);
-
         setFormData({
             ...formData,
             [e.currentTarget.id]: e.currentTarget.value
-        });
-
-        // Aici resetam erorile in cazul in care se scrie din nou in inputuri
+        })
         const newError = { 
             ...formError, 
             [e.currentTarget.id]: '',
@@ -121,74 +48,134 @@ function Register() {
         setFormError(newError);
     }
 
+    const [globalErrorMessage, setGlobalError] = useState('');
+
+    const [isSuccessfull, setSuccessfull] = useState(false);
+
+    const [isDirty, setDirty] = useState(false);
+
+    const { setToken } = useContext(AuthContext);
+
+    async function handleSubmit(e) { 
+        e.preventDefault(); 
+
+        setGlobalError('');
+
+        const isInvalid = validateFormData();
+        
+        if(!(await isInvalid).valueOf(isInvalid)) {
+                localStorage.removeItem('email');
+                setDirty(false);
+                try {
+                    await axios.post('http://localhost:5000/Users/',formData );
+                    // const token = jwt.sign({formData}, 'secretKey');
+                    // localStorage.setItem('email', formData.email);
+                    // setToken(token);                          
+                    setSuccessfull(true);
+                    
+                } catch(e) {
+                    setGlobalError(e.response.data.message);
+                } 
+    }
+    }
+
+    async function validateFormData() { 
+        const email = formData.email;
+        const res = await axios.get('http://localhost:5000/Users', { params: { Email: email }} );
+        const inputs = ['email', 'password', 'retype-password'];
+        const newError = { ...formError };
+        let isInvalid = false;
+
+        for(const input of inputs) {
+            if(!formData[input]) {
+                newError[input] = errorMessages[input];
+                isInvalid = true;
+            }
+        }
+
+        if(!(/^[a-z0-9\.@\_]+$/i.test(formData.email))) {
+            newError.email = errorMessages['no-numbers'];
+            isInvalid = true;
+        }
+
+        if(formData.password !== formData['retype-password']) {
+            newError['different-passwords'] = errorMessages['different-passwords'];
+            isInvalid = true;
+         }
+
+         if(res.data.length == 1){
+            newError['email'] = errorMessages['existing-email'];
+            isInvalid = true;
+         }
+ 
+         setFormError(newError);
+         return isInvalid;
+    }
 
     return (
         <>
-            <h1>Register</h1>
-
             { (globalErrorMessage ?  
-                <div className="alert alert-danger" role="alert">
-                    { globalErrorMessage }
-                </div>
-            : null) }
+                    <div role="alert">
+                        { globalErrorMessage }
+                    </div>
+                : null) }
 
-            { (isSuccessfull ?  
-                <div className="alert alert-success" role="alert">
-                    Your username was created successfully!
-                </div>
-            : null) }
+                { (isSuccessfull ?  
+                    <div role="alert">
+                        Your username was created successfully!
+                    </div>
+                : null) }
 
-            <form onSubmit={ handleSubmit }>
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
+            <form className="form" onSubmit={ handleSubmit }>
+                <div className="formField">
+                    <label htmlFor="email">Email: </label>
                     <input 
-                        onChange={ handleInputChange }
-                        value={ formData.username }
-                        type="text"
-                        className={ 'form-control' + (formError.username ? ' is-invalid' : '') }
-                        id="username"
-                        placeholder="Enter username"
+                            onChange={ handleInputChange }
+                            value={formData.email}
+                            type="text"
+                            id="email"
+                            placeholder="Enter email"
                     />
-    
                     <div className="invalid-feedback">
-                        { formError.username }
+                        { formError.email }
                     </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
+
+                <div className="formField">
+                    <label htmlFor="password">Password: </label>
                     <input
                         onChange={ handleInputChange }
                         value={ formData.password }
                         type="password"
-                        className={ 'form-control' + (formError.password ? ' is-invalid' : '') }
                         id="password"
                         placeholder="Password"
                     />
-                    <div className="invalid-feedback">
+                     <div className="invalid-feedback">
                         { formError.password }
                     </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="retype-password">Retype Password</label>
+
+                <div className="formField">
+                    <label htmlFor="retype-password">Retype Password: </label>
                     <input
                         onChange={ handleInputChange }
                         value={ formData['retype-password'] }
                         type="password"
-                        className={ 'form-control' + (formError['retype-password'] || formError['different-passwords']  ? ' is-invalid' : '') }
                         id="retype-password"
                         placeholder="Retype Password" 
                     />
-                    <div className="invalid-feedback">
+                     <div className="invalid-feedback">
                         { formError['retype-password'] }
                         { formError['retype-password'] ? <br /> : '' }
                         { formError['different-passwords'] }
                     </div>
-                    
                 </div>
-                <button type="submit" className="btn btn-primary" disabled={ !isDirty }>Register</button>
+                <button type="submit" className="formButton" disabled={!isDirty}>Register</button>
             </form>
         </>
-    );
+    )
+
 }
+
 
 export default Register;

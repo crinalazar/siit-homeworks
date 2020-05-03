@@ -1,0 +1,605 @@
+@font-face {
+    font-family: myFont;
+    src: url(MPLUS1p-Light.ttf);
+  }
+ @font-face {
+    font-family: NameFont;
+    src: url(MrDeHaviland-Regular.ttf);
+  }
+
+*{
+    box-sizing: border-box;
+    margin: 0px 0px;
+}
+
+#root{
+
+    background-image: url(spice-spoon.jpg);
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+
+body {
+    margin: 0px 0px;
+}
+                                             /* css for Header  */
+
+.stickyName{
+    position: sticky;
+    padding-bottom: 10vw;
+    padding-top:5vw;
+    padding-right: 3vw;
+    top:0;
+    color: rgb(155, 155, 155);
+    text-align: end;
+    font-family: NameFont;
+    font-size: 5vw;
+    z-index: 1;
+}
+
+.stickyName span{
+    color: rgb(116, 255, 190);
+}
+
+.first-section{
+    padding-bottom: 4vw;
+}
+
+nav{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 0px;
+    list-style:none;
+    padding: 1.5rem; 
+}
+
+nav ul {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(4, 70px); 
+    justify-content: end;
+    list-style: none;  
+}
+
+nav ul a {
+    color: black;
+    text-decoration: none;
+}
+
+nav ul a:hover{
+    color: rgb(116, 255, 190);
+    text-decoration: underline;
+}
+
+.header-li{
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+header p{
+    font-size: 2.5vw;
+    color: rgb(0, 0, 0);
+    margin: 0; 
+    padding-top: 0.5em;
+    letter-spacing: 1.8vw;
+    word-spacing: 3.7vw;
+    text-align: center;
+    border-bottom: solid;
+    border-width: 1px;
+    background-color: rgb(255, 255, 255);
+}
+
+
+.userLogged{
+    text-align: right;
+    color: rgb(163, 163, 163);
+}
+
+
+.register{
+    justify-content: end;
+    padding-left: 40px ;
+}
+
+.inactive {
+    color: gray;
+    pointer-events:none;
+}
+
+                                        /* css for RecipeList */
+
+.filter{
+    display:flex;
+   align-items: center;
+    background-color: rgb(48, 48, 48);
+    color: rgb(160, 160, 160);
+    border-top: solid;
+    border-width: 2vw;
+    border-color: rgba(0, 0, 0, 0);
+}  
+.filter> p{
+    padding-left: 2vw;
+    font-size: 1.6vw;
+}
+.filter > input{
+    display: inline-block;
+    margin-left: 2vw;
+    background: rgba(255,255,255,.1);
+	border: none;
+	border-radius: 10px;
+	font-size: 1.5vw;
+	outline: 0;
+	padding: 0.5vw;
+	box-sizing: border-box; 
+	background-color: #f8f8f8;
+	color:#181818;
+	box-shadow: 0 1px 0 rgba(179, 179, 179, 0.945) inset;
+   
+}                                  
+
+.recipeList{
+    background-color: rgb(48, 48, 48);
+    display: grid;
+    column-gap: 0.3vw;
+    row-gap: 0.3vw;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: solid;
+    border-bottom: solid;
+    border-color: rgba(0, 0, 0, 0);
+    border-width: 2vw;
+   
+}
+
+                                        /* css for Recipe */
+
+.fontRecipe{
+    font-family: myFont;
+    font-size: 2vw;
+    margin-bottom: 0%;
+    margin-top: 0%;
+}
+
+.pictures{
+   border-bottom: none;
+   position: relative;
+}
+
+.recipe-image{
+    opacity: 1;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    display:block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.picture-text {
+    display: inline-block;
+    transition: .5s ease;
+    position: absolute;
+    opacity: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5vw;
+  }
+
+  .recipe-name{
+    font-family: myFont; 
+    font-size: 2vw;
+}
+
+  .pictures:hover .recipe-image {
+    opacity: 0.3;
+  }
+  
+  .pictures:hover .picture-text {
+    opacity: 1;
+  }
+
+                                        /* css for Footer */
+
+
+.footer{
+    display: flex;
+    background-image: url("spices.jpg");
+    background-repeat: no-repeat;
+    background-size: 85%;
+    margin-bottom: 0px;    
+}
+
+.footer-img {
+    padding-top: 20px;
+    width: 15vw;
+    margin-left: 70vw;
+    margin-bottom: 0px;
+    
+}
+
+
+
+                                         /* css for Register  */
+
+.form{
+    max-width: 500px;
+	padding: 10px 20px;
+	background: #ffecec9c;
+	margin: 10px auto;
+	padding: 20px;
+	border-radius: 8px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.formField{
+    display: flex;
+    justify-content: center;
+    font-family: Georgia, "Times New Roman", Times, serif;
+	background: rgba(255,255,255,.1);
+	border: none;
+	border-radius: 4px;
+	font-size: 15px;
+	margin: 5px auto;
+	outline: 0;
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box; 
+	background-color: #fcf6eb;
+	color:#9e968d;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+} 
+
+.formField input{
+    margin-left: 2px;
+}
+
+.formButton{
+    position: relative;
+	display: block;
+	padding: 19px 39px 18px 39px;
+	color: #FFF;
+	margin: 10px auto;
+	background: #ffb8ab;
+	font-size: 15px;
+	text-align: center;
+	font-style: normal;
+	width: 60%;
+	border: 1px solid #e59c99;
+	border-width: 1px 1px 3px;
+	margin-bottom: 10px;
+}
+
+.formButton:hover:enabled{
+    background: #fa9c8b;
+}
+
+                                        /* css for Login */
+
+.success {
+    text-align: center;
+}
+
+
+                                        /* css for UserProfile */
+
+.wrapper-user{
+    display:grid;
+    grid-template-areas: "recipes recipes img img"
+                       "recipes recipes text btn";
+    grid-template-columns:  1fr 1fr 1fr 1fr;     
+
+    background: linear-gradient(90deg, #ffffff 50%, #131313 20%); 
+    border-top-width: 5px; 
+    margin: 0vw 3vw 2vw 3vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+}
+
+.userDetails {
+    grid-area: text;
+    margin-top: 5%;
+    font-family:'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: start;
+    padding-left: 4%;
+    color: rgb(226, 226, 226);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.userDetails{
+    align-self: center;
+}
+
+.userImg{
+    grid-area: img;
+    object-fit: cover;
+}
+
+.userImg img{
+    display:block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+} 
+
+.userRecipes{
+    grid-area: btn;
+    display:flex;
+    justify-content: center;
+}
+
+.postRecipe{
+    grid-area: recipes;
+    text-align: end;
+    color: black;
+    overflow: scroll;
+    max-height: 60vw;
+}
+
+.formFieldUserProfile{
+    margin-right: 1vw;
+    display:grid;
+    grid-template-areas: "label field";
+    grid-template-columns: 1fr 1fr;
+	font-size: 1.7vw;
+    margin-bottom: 2px;
+}
+
+.addRecipeForm{
+    padding: 10px 20px;
+	margin: 10px auto;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+
+.formFieldUserProfile label{
+    grid-area: label;
+}
+
+.formFieldUserProfile input{
+    grid-area: field;
+}
+
+.ingredients{
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    grid-area: label;
+    text-align: end;
+    color: rgb(97, 97, 97);
+    font-size: 1.9vw;
+}
+
+.profileFormButtons{
+    box-shadow:inset 0px 39px 0px -24px  #4b4b4b;
+    background-color: #131313;
+    border-radius:4px;
+    border:1px solid #a5a5a5;
+    cursor:pointer;
+    color:#dadada;
+    font-family:Arial;
+    font-size:1.7vw;
+    padding:5px 11px;
+    text-decoration:none;
+    margin: 1vw 1vw 1vw 0;
+}
+
+.profileFormButtons:hover {
+    background-color:#5f5f5f;
+}
+.postNewRecipe{
+    text-align: center;
+    margin-top: 1vw;
+    font-family: myFont;
+    font-size: 4vw;
+}
+
+
+
+                                /* css for UserRecipes */
+
+.userRecipesWrapper{
+    display:flex;
+    align-items: center;
+} 
+
+.user-recipe-image{
+    opacity: 1;
+    transition: .5s ease;
+    display:block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+.user-picture-text {
+    display: inline-block;
+    transition: .5s ease;
+    position: absolute;
+    font-family: myFont;
+    opacity: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5vw;
+  }
+
+.pictures:hover .user-recipe-image {
+    opacity: 0.3;
+  }
+  
+.pictures:hover .user-picture-text {
+    opacity: 1;
+  }
+.sidebar {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr) ;
+    grid-template-rows: repeat(3, 1fr) ;
+    row-gap: 0.2vw;
+    column-gap: 0.2vw;  
+    height: 100%;
+    overflow: scroll; 
+    width: 0px; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    background-color: #111; 
+    overflow-x: hidden; 
+    padding-top: 60px; 
+    transition: 0.5s;
+    
+}
+.sidebar-onClick {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr) ;
+    grid-template-rows: repeat(3, 1fr) ;
+    overflow: scroll;
+    row-gap: 0.2vw;
+    column-gap: 0.2vw;  
+    height: 100%; 
+    width: 81%; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.781); 
+    overflow-x: hidden; 
+    padding-top: 60px; 
+    transition: 0.5s;
+}
+    
+    .closebtn {
+        color: mistyrose;
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+    
+
+    #main {
+        transition: margin-left .5s; 
+        /* padding: 20px; */
+      }
+
+      #main-onClick {
+        transition: margin-left .5s; 
+      }
+
+      .openbtn {
+        box-shadow:inset 0px 39px 0px -24px  #c4c4c4;
+        background-color: #b3b3b3;
+        border-radius:4px;
+        border:1px solid #ffffff;
+        display:block;
+        cursor:pointer;
+        color:#555555;
+        font-family:Arial;
+        font-size:1.9vw;
+        padding:6px 15px;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #585858;
+    }
+    .openbtn:hover {
+        background-color:#dbdbdb;
+    }
+
+
+      @media screen and (max-height: 450px) {
+        .sidebar {padding-top: 15px;}
+        .sidebar a {font-size: 18px;}
+      }
+
+                                     /* css for RecipeDetails */
+
+.recipe-author{
+    padding-left: 20vw;
+    color: rgb(196, 195, 195);
+}
+
+.recipeDetailsWrapper{
+    text-align: center;
+    background-color: rgba(49, 49, 49, 0.795);
+    padding-bottom: 2vw;
+    border-top-right-radius: 15vw;
+}
+
+.details-name{
+    padding-top: 2vw;
+    margin-bottom: 2vw;
+    font-size: 7vw;
+    color: rgb(196, 195, 195);    
+}
+
+.recipeDetails{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'text img'
+                         'rest rest';
+    margin-left:15%;
+    margin-right:15%;
+    margin-bottom: 2.5vw;
+    
+    object-fit: cover;
+    background-color: rgb(172, 172, 172);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.425), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-bottom-left-radius: 12vw;
+}
+
+.details-picture{
+    grid-area: img;
+    border-bottom-left-radius: 10vw;
+    width: 40vw;
+    border:solid;
+    border-color: rgb(116, 255, 190);
+    border-width: 2px;
+}
+
+.firstDet{
+    text-align: end;
+    padding-right: 1vw;
+    padding-top: 1vw;
+}
+
+.details-rest{
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    grid-area: rest;
+    text-align: center;
+}
+
+.text-det{
+    font-weight: bold;
+    font-size: 1.2em ;
+}
+
+                                     /* css for UserRecipes */
+
+.deletebtn, .editbtn{
+    z-index: 1;
+    font-size: 1.4em;
+    position: absolute;
+    color:rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.editbtn{
+    bottom: 0;
+    right: 0;
+}
+
+.deletebtn:hover , .editbtn:hover{
+    color: red;
+}
+
+
+
+
+
+

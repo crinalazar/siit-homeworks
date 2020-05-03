@@ -1,60 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import PrivateRoute from './auth/PrivateRoute';
 
+import RecipeList from './recipes/RecipeList';
 import Header from './shared/Header';
-import MovieList from './movies/MovieList';
-import MovieDetails from './movies/MovieDetails';
-import EditMovie from './movies/EditMovie';
+import Footer from './shared/Footer';
+import User from './users/UserProfile';
+import UserRecipes from './users/UserRecipes';
+import RecipeDetails from './recipes/RecipeDetails'
 import Register from './auth/Register';
 import Login from './auth/Login';
+import '../style/cooking-app.css';
 import AuthContext from './auth/AuthContext';
+import UserContext from './auth/UserContext';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+function App(){
+
     const [token, setToken] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-        //verificam daca in local storage avem token, daca avem facem un setToken(<ce vine din localStorage>)
         const token = localStorage.getItem('token');
         if(token) {
             setToken(token);
         }
     }, []);
 
-    return (
-        <AuthContext.Provider value={ {token, setToken} }>
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        if(userId) {
+            setUserId(userId);
+        }
+    }, []);
+   
+
+    return(
+        <AuthContext.Provider value={ {token, setToken}}>
+            <UserContext.Provider value={ {userId, setUserId}} >
             <BrowserRouter>
-                <Header user="Alexandru" />
+                <Header />
                 <div className="container">
                     <Route exact path="/">
-                        <MovieList />
+                        <RecipeList />
                     </Route>
-                    <Route exact path="/movies/:movieId">
-                        <MovieDetails />
-                    </Route>
-                    <Route path="/movies/edit/:movieId">
-                        <EditMovie />
-                    </Route>
+                    <PrivateRoute path="/user/:id">
+                        <User />
+                    </PrivateRoute>
                     <Route path="/register">
                         <Register />
                     </Route>
                     <Route path="/login">
                         <Login />
                     </Route>
+                    <PrivateRoute path="/recipes/:recipeId">
+                        <RecipeDetails />
+                    </PrivateRoute>
                 </div>
+                <Footer />
             </BrowserRouter>
+            </UserContext.Provider>
         </AuthContext.Provider>
-    );
+    )
 }
 
-//default export
 export default App;
-
-// const settings = 'my settings';
-
-// //named export
-// export { 
-//     App,
-//     settings
-// }
