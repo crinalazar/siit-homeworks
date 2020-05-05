@@ -136,11 +136,12 @@ function User(){
         if(isSuccessfull == true){
             try {
                 axios.get(url).then(res => {
+                    const id = res.data.length + 1;
                     const postUserRecipe= axios('http://localhost:5000/UsersRecipes/', {
                     method: 'POST',
                     data: ({
                         "userId": userId,
-                        "recipeId": res.data.length + 1,
+                        "recipeId": id,
                     }),
                 })
                 });
@@ -227,11 +228,12 @@ function User(){
                             <label htmlFor="description">Description:</label>
                             <textarea onChange= { handleInputChange } type="text" rows="5" cols="22" id="Description" name="description" value={formDataRecipe.Description}/>
                         </div>
+                        
                         <div className="formFieldUserProfile">
                             <label htmlFor="picture">Picture:</label>
                             <input onChange= { handleInputChange } type="file" id="Picture" name="picture" value={formDataRecipe.Picture}/>
                         </div>
-                       
+                        
                         <div >
                         <div className="formFieldUserProfile">
                             <p className="ingredients">Ingredients</p>
@@ -260,10 +262,16 @@ function User(){
                         <button className="profileFormButtons" type="button" disabled = {!recipeId} onClick={ clearForm }>Clear</button>
                     </form>
                 </div> 
-                
+                { (user.Photo? 
                 <div className = "userImg">
                     <img src={user.Photo} alt="User Photo"/>
+                </div> 
+                :
+                <div className = "userImg userDetails">
+                <label htmlFor="picture">Profile Photo:</label>
+                <input type="file" id="Picture" name="picture"/>
                 </div>
+                 )}
                 <div className="userDetails">
                     <p>Name: {user.LastName}</p>
                     <p>Surname: {user.FirstName}</p>

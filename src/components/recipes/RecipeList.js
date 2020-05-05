@@ -38,14 +38,14 @@ return (
                 <input id="search1" className="searchbar" onChange={handleChangeFirstIng} value={firstIng} type="text"  placeholder="Type Ingredient"/>
                 <input id="search2" className="searchbar" onChange={handleChangeSecondIng} value={secondIng} type="text" placeholder="Type Ingredient"/>
         </div>
-        {(firstIng ?
+        {(firstIng || secondIng ?
         <div className="recipeList">
                 {console.log(firstIng)}
                 {recipes.map((recipe,index) => {
                 const firstIngredient = recipe.Ingredients.filter(ing => {
                         return (ing.type.includes(firstIng)) 
                 })
-                console.log(firstIng);
+
                 const secondIngredient = recipe.Ingredients.filter(ing => {
                         return (ing.type.toLowerCase().includes(secondIng)) 
                 })

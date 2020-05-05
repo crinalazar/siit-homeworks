@@ -1,33 +1,39 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import '../../style/cooking-app.css';
-import AuthContext from './AuthContext';
-import UserContext from './UserContext';
-
-var jwt = require("jsonwebtoken");
 
 
     const errorMessages = {
-        'email': 'You must enter an email!',
+        'Email': 'You must enter an email!',
         'existing-email': "Email already existing!",
-        'password': 'You must enter a password!',
-        'retype-password': 'You must retype the password!',
-        'different-passwords': 'You must enter the same password twice!',
-        'no-numbers': 'The username cannot contain any special characters!',
+        'Password': 'You must enter a password!',
+        'Retype-password': 'Please retype the password!',
+        'different-passwords': 'Same password twice!',
+        'no-numbers': 'Please enter a valid email address!',
+        'Age': 'You must enter your age!',
+        'numbers-only': 'Only numbers allowed!',
+        'FirstName': 'You must enter your first name!',
+        'LastName': 'You must enter your last name!'
     };
 
     function Register(){
         const [formData, setFormData] = useState({
-            'email': '',
-            'password': '',
-            'retype-password': ''
+            'FirstName': '',
+            'LastName': '',
+            'Age': '',
+            'Email': '',
+            'Password': '',
+            'Retype-password': ''
         });
 
     const [formError, setFormError] = useState({
-        'email': '',
-        'password': '',
-        'retype-password': '',
-        'different-passwords': ''
+        'FirstName': '',
+        'LastName': '',
+        'Age': '',
+        'Email': '',
+        'Password': '',
+        'Retype-password': '',
+        'Different-passwords': ''
     });
 
     function handleInputChange(e){
@@ -41,7 +47,7 @@ var jwt = require("jsonwebtoken");
             [e.currentTarget.id]: '',
         };
 
-        if(e.currentTarget.id === 'password' || e.currentTarget.id === 'retype-password') {
+        if(e.currentTarget.id === 'Password' || e.currentTarget.id === 'Retype-password') {
             newError['different-passwords'] = '';
         }
 
@@ -54,8 +60,6 @@ var jwt = require("jsonwebtoken");
 
     const [isDirty, setDirty] = useState(false);
 
-    const { setToken } = useContext(AuthContext);
-
     async function handleSubmit(e) { 
         e.preventDefault(); 
 
@@ -67,10 +71,7 @@ var jwt = require("jsonwebtoken");
                 localStorage.removeItem('email');
                 setDirty(false);
                 try {
-                    await axios.post('http://localhost:5000/Users/',formData );
-                    // const token = jwt.sign({formData}, 'secretKey');
-                    // localStorage.setItem('email', formData.email);
-                    // setToken(token);                          
+                    await axios.post('http://localhost:5000/Users/',formData );                         
                     setSuccessfull(true);
                     
                 } catch(e) {
@@ -80,9 +81,9 @@ var jwt = require("jsonwebtoken");
     }
 
     async function validateFormData() { 
-        const email = formData.email;
+        const email = formData.Email;
         const res = await axios.get('http://localhost:5000/Users', { params: { Email: email }} );
-        const inputs = ['email', 'password', 'retype-password'];
+        const inputs = ['Email', 'Password', 'Retype-password', 'Age', 'FirstName', 'LastName'];
         const newError = { ...formError };
         let isInvalid = false;
 
@@ -93,18 +94,23 @@ var jwt = require("jsonwebtoken");
             }
         }
 
-        if(!(/^[a-z0-9\.@\_]+$/i.test(formData.email))) {
-            newError.email = errorMessages['no-numbers'];
+        if(!(/^[a-z0-9\.@\_]+$/i.test(formData.Email)) && (formData.Email !== "")) {
+            newError.Email = errorMessages['no-numbers'];
             isInvalid = true;
         }
 
-        if(formData.password !== formData['retype-password']) {
+        if(!(/^[0-9]+$/i.test(formData.Age)) && (formData.Age !== "")) {
+            newError.Age = errorMessages['numbers-only'];
+            isInvalid = true;
+        }
+
+        if(formData.Password !== formData['Retype-password']) {
             newError['different-passwords'] = errorMessages['different-passwords'];
             isInvalid = true;
          }
 
-         if(res.data.length == 1){
-            newError['email'] = errorMessages['existing-email'];
+         if((res.data.length == 1) && (formData.Email !== "")){
+            newError['Email'] = errorMessages['existing-email'];
             isInvalid = true;
          }
  
@@ -127,17 +133,59 @@ var jwt = require("jsonwebtoken");
                 : null) }
 
             <form className="form" onSubmit={ handleSubmit }>
+            <div className="formField">
+                    <label htmlFor="fname">First name: </label>
+                    <input 
+                            onChange={ handleInputChange }
+                            value={formData.FirstName}
+                            type="text"
+                            id="FirstName"
+                            placeholder="Enter first name"
+                    />
+                    <div className="invalid-feedback">
+                        { formError.FirstName }
+                    </div>
+                </div>
+
+                <div className="formField">
+                    <label htmlFor="lname">Last name: </label>
+                    <input 
+                            onChange={ handleInputChange }
+                            value={formData.LastName}
+                            type="text"
+                            id="LastName"
+                            placeholder="Enter last name"
+                    />
+                    <div className="invalid-feedback">
+                        { formError.LastName }
+                    </div>
+                </div>
+
+                <div className="formField">
+                    <label htmlFor="age">Age: </label>
+                    <input 
+                            onChange={ handleInputChange }
+                            value={formData.Age}
+                            type="text"
+                            id="Age"
+                            placeholder="Enter age"
+                    />
+                    <div className="invalid-feedback">
+                        { formError.Age }
+                    </div>
+                </div>
+
                 <div className="formField">
                     <label htmlFor="email">Email: </label>
                     <input 
                             onChange={ handleInputChange }
-                            value={formData.email}
+                            value={formData.Email}
                             type="text"
-                            id="email"
+                            id="Email"
                             placeholder="Enter email"
                     />
                     <div className="invalid-feedback">
-                        { formError.email }
+                        { formError.Email }
                     </div>
                 </div>
 
@@ -145,13 +193,13 @@ var jwt = require("jsonwebtoken");
                     <label htmlFor="password">Password: </label>
                     <input
                         onChange={ handleInputChange }
-                        value={ formData.password }
+                        value={ formData.Password }
                         type="password"
-                        id="password"
+                        id="Password"
                         placeholder="Password"
                     />
                      <div className="invalid-feedback">
-                        { formError.password }
+                        { formError.Password }
                     </div>
                 </div>
 
@@ -161,7 +209,7 @@ var jwt = require("jsonwebtoken");
                         onChange={ handleInputChange }
                         value={ formData['retype-password'] }
                         type="password"
-                        id="retype-password"
+                        id="Retype-password"
                         placeholder="Retype Password" 
                     />
                      <div className="invalid-feedback">
